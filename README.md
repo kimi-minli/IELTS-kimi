@@ -8,7 +8,7 @@
 
 Click **Open App** to start learning. No installation or account required.
 
-- 3,697 IELTS vocabulary entries, personal wordbooks and search
+- Kimi’s shared wordbook (11,826 entries) and IELTS Vocabulary (3,697 entries), with deduplication when both are selected
 - Word origins and examples where source data is available
 - American/British pronunciation and example playback
 - Calendar-day spaced reviews, daily check-ins and learning records
@@ -28,5 +28,5 @@ then open `http://localhost:8000`. Opening index.html via file:// is not support
 ## Data and credits
 
 See [Dictionary credits](https://kimi-minli.github.io/IELTS-kimi/sources.html).
-This public repository does not include the owner's personal wordbooks, study history,
+The owner has authorized publication of Kimi’s word list. This repository does not include study history,
 private backups, credentials or private repository history.

@@ -11,12 +11,25 @@
   req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(Error('Browser storage is unavailable.'));
  });
  function initialState(entries){return {cards:{},log:[],savedWords:entries,learningCards:{},events:[],checkIns:[],settings:{newLimit:20,reviewLimit:40,accent:'en-US',autoSpeak:false,pronunciationVersion:1},books:{personal:{name:'Personal Wordbook',words:[]},ielts:{name:'IELTS Vocabulary',words:Object.keys(entries)}},selectedBookIds:['ielts'],historical:{},definitionCache:{total:Object.keys(entries).length,available:Object.values(entries).filter(e=>e.m||e.zh).length,missing:Object.keys(entries).filter(w=>!entries[w].m&&!entries[w].zh)}}}
+ const catalog=()=>nativeFetch(new URL('assets/wordbooks.json',base)).then(r=>{if(!r.ok)throw Error('Wordbooks download failed.');return r.json()});
  async function read(){
   const db=await dbPromise;
-  const old=await new Promise((resolve,reject)=>{const t=db.transaction('records'),r=t.objectStore('records').get('main');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
-  if(old)return old;
-  const seed={revision:0,state:initialState(await dictionary())};
-  return new Promise((resolve,reject)=>{const t=db.transaction('records','readwrite'),store=t.objectStore('records');let value;const r=store.get('main');r.onsuccess=()=>{value=r.result||seed;if(!r.result)store.put(value,'main')};t.oncomplete=()=>resolve(value);t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error)});
+  const old=await new Promise((resolve,reject)=>{const r=db.transaction('records').objectStore('records').get('main');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
+  if(old?.state.publicWordbooksVersion===2)return old;
+  const [entries,books]=await Promise.all([dictionary(),catalog()]);
+  return new Promise((resolve,reject)=>{const t=db.transaction('records','readwrite'),store=t.objectStore('records');let value;const r=store.get('main');r.onsuccess=()=>{
+   value=r.result;
+   if(value?.state.publicWordbooksVersion===2)return;
+   const fresh=!value;
+   value=value||{revision:0,state:initialState(entries)};
+   const state=value.state;
+   state.savedWords={...entries,...state.savedWords};
+   let id='kimi';while(state.books[id])id+='-shared';
+   state.books[id]=books.kimi;
+   if(fresh){state.books.ielts=books.ielts;state.selectedBookIds=[id,'ielts']}
+   else {state.selectedBookIds=[...new Set([...state.selectedBookIds,id])];value.revision++}
+   state.publicWordbooksVersion=2;store.put(value,'main');
+  };t.oncomplete=()=>resolve(value);t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error)});
  }
  function validate(s){
   if(!s||!s.cards||!Array.isArray(s.log)||!s.settings||!s.savedWords||!Array.isArray(s.events)||!s.books?.personal||!Array.isArray(s.selectedBookIds))throw Error('Invalid study backup');
