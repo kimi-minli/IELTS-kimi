@@ -1,10 +1,13 @@
-<p align="center"><a href="https://kimi-minli.github.io/IELTS-kimi/"><img src="open-app.svg" alt="OPEN APP — Click to start learning" width="1000"></a></p>
+<p align="center">
+<a href="https://kimi-minli.github.io/IELTS-kimi/"><img src="open-app-en.svg" alt="English Version" width="1000"></a><br>
+<a href="https://kimi-minli.github.io/IELTS-kimi/zh.html"><img src="open-app-zh.svg" alt="进入中文版" width="1000"></a>
+</p>
 
 # IELTS-kimi
 
 **Your daily English practice. Understand the roots. Make it stick.**
 
-## [▶ Open App — 进入网站](https://kimi-minli.github.io/IELTS-kimi/)
+## [English Version](https://kimi-minli.github.io/IELTS-kimi/) · [中文版](https://kimi-minli.github.io/IELTS-kimi/zh.html)
 
 Click **Open App** to start learning. No installation or account required.
 

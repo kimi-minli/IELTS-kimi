@@ -2,7 +2,8 @@
 (() => {
  'use strict';
  const nativeFetch=window.fetch.bind(window),base=new URL('./',document.currentScript.src);
- const json=(status,value)=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}});
+ const errors={"Another tab saved newer records. Back up this tab before reloading.":'其他标签页已保存更新记录，请先备份本页再刷新。',"Browser storage is unavailable.":'浏览器存储不可用。',"Invalid study backup":'学习备份格式无效',"Invalid settings":'设置格式无效',"Invalid word":'单词数据无效',"Invalid wordbooks":'单词本数据无效',"Invalid selected wordbooks":'所选单词本无效',"Invalid study event":'学习记录无效',"Invalid review schedule":'复习计划无效',"Invalid check-ins":'打卡记录无效',"Enter an English word":'请输入英文单词',"No dictionary entry found. Try another spelling.":'未找到词条，请检查拼写。',"Dictionary download failed. Reload to retry.":'词典下载失败，请刷新重试。',"Wordbooks download failed.":'单词本下载失败。'};
+ const json=(status,value)=>{if(document.documentElement?.lang==='zh-CN'&&value.error)value={...value,error:errors[value.error]||'操作未完成，请检查网络及浏览器存储后重试。'};return new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}})};
  let dictionaryPromise;
  const dictionary=()=>dictionaryPromise||(dictionaryPromise=nativeFetch(new URL('assets/dictionary.json',base)).then(r=>{if(!r.ok)throw Error('Dictionary download failed. Reload to retry.');return r.json()}).catch(e=>{dictionaryPromise=null;throw e}));
  const dbPromise=new Promise((resolve,reject)=>{
