@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="210" viewBox="0 0 1000 210" role="img" aria-label="Open IELTS-kimi app">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#122c31"/><stop offset="1" stop-color="#0c1419"/></linearGradient></defs>
+<rect x="2" y="2" width="996" height="206" rx="26" fill="url(#bg)" stroke="#64ecd1" stroke-width="3"/>
+<path d="M0 8H1000" stroke="#c6ad78" stroke-width="3"/>
+<text x="48" y="63" fill="#d1b783" font-family="Arial,sans-serif" font-size="21" letter-spacing="5">IELTS-kimi</text>
+<text x="48" y="130" fill="#6cf0d5" font-family="Arial,sans-serif" font-weight="700" font-size="58">OPEN APP</text>
+<text x="50" y="174" fill="#c4d7da" font-family="Arial,sans-serif" font-size="22">Click to start learning · No installation needed</text>
+<circle cx="907" cy="105" r="49" fill="#65ecd1"/><path d="M884 105h43m-18-18 18 18-18 18" fill="none" stroke="#0c272b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

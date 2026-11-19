@@ -1,3 +1,5 @@
+<p align="center"><a href="https://kimi-minli.github.io/IELTS-kimi/"><img src="open-app.svg" alt="OPEN APP — Click to start learning" width="1000"></a></p>
+
 # IELTS-kimi
 
 **Your daily English practice. Understand the roots. Make it stick.**
